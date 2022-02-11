@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Avaliação do nível de desempenho térmico de edificações residenciais - ABNT NBR 15575-1</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style type="text/css">
+          
+          body {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background-color: #EFF1ED;
+          }
+          
+          input, select {
+            width: 100%;
+            box-sizing: border-box;
+            margin-left: 1vw;
+          }
+    
+          .warning-div {
+            color: #ff0c05;
+            margin-left: 2vw;
+            display: none; 
+          }
+    
+          #app-input, #uh-btn {
+            display: none;
+            align-content: center;
+            flex-direction: column;
+            margin-top: 2vh;
+          }
+    
+          #btn_calcular {
+            text-align: center;
+            width: 100%;
+            margin-top: 1vh;
+            margin-bottom: 3vh;
+          }
+    
+        </style>
+    </head>
+    <body>
+        <div style="position:center;text-align: center;padding-top:40px;padding-bottom:20px;background-color: rgba(81, 185, 116, 0.247); width:100%"> 
+             <span style="font-size: 40px;color:#000000;padding-top: 20px;">Edificações Residenciais</span><br><span style="font-size: 20px;color:#504d4d;">
+            Classificação do nível de desempenho térmico pela NBR 15575-1 / 2021 </span>
+            
+        </div>
+
+    <!-- <h1>Interface do metamodelo da INI-R</h1>
+
+    <h3>Entradas da unidade habitacional (UH)</h3> -->
+        <div style="padding-top:40px;">
+            <table style="margin-bottom: 4vh;">
+                <h1 style="font-size:20px;padding-bottom:15px;color:#333232;text-align:center">Insira as informações abaixo para calcular o nível de desempenho térmico de sua edificação</h1>
+                <h2 style="font-size:20px;text-decoration:underline ;padding:15px;color:#000000;text-align:center">INFORMAÇÕES GERAIS</h2>
+                <tr>
+                    <th>Tipologia da edificação avaliada<span id="tipologia_question" style="float:right;" title="Deve-se informar a tipologia da edificação avaliada" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                        <select name="tipologia" id="tipologia">
+                          <option value="unifamiliar">Unifamiliar</option>
+                          <option value="multi_terreo">Multifamiliar pavimento térreo</option>
+                          <option value="multi_inter">Multifamiliar pavimento tipo</option>
+                          <option value="multi_cob">Multifamiliar pavimento cobertura</option>
+
+                        </select>
+                    </td>
+                  </tr>
+                <tr>
+                    <th>Zona bioclimática da edificação avaliada<span id="zb_question" style="float:right;margin-left:1vw;" title="Deve-se informar a zona bioclimática da edificação avaliada. As zonas bioclimáticas são definidas conforme a NBR 15220" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                        <select name="zb" id="zb">
+                          <option value="ZB1">Zona Bioclimática 1</option>
+                          <option value="ZB2">Zona Bioclimática 2</option>
+                          <option value="ZB3">Zona Bioclimática 3</option>
+                          <option value="ZB4">Zona Bioclimática 4</option>
+                          <option value="ZB5">Zona Bioclimática 5</option>
+                          <option value="ZB6">Zona Bioclimática 6</option>
+                          <option value="ZB7">Zona Bioclimática 7</option>
+                          <option value="ZB8">Zona Bioclimática 8</option>
+                        </select>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>Área de piso dos APP da unidade habitacional - Ap,UH (m²) <span id="area_condicionada_question" style="float:right;margin-left:1vw;" title = "Insira a soma das áreas de piso de todos os APP da UH (m²)" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                        <input type="number" name="area_condicionada" id="area_condicionada"></input>
+                    </td>
+                </tr>
+
+            </table><table>
+                <h2 style="font-size:20px;text-decoration:underline ;padding:15px;color:#000000;text-align:center">INFORMAÇÕES DA EDIFICAÇÃO NA CONDIÇÃO REAL</h2>
+                    
+                <tr>
+                    <th>Carga térmica total da condição real (kWh) <span id="CgTT_real_question" style="float:right;margin-left:1vw;" title = "Insira a carga térmica total da condição real, ou seja, a somatória das cargas térmicas de resfriamento e aquecimento (quando existente)" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                        <input type="number" name="CgTT_real" id="CgTT_real"></input>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Temperatura operativa máxima da condição real (°C) <span id="tomax_real_question" style="float:right;margin-left:1vw;" title = "Insira a temperatura operativa máxima da condição real - Tomax (°C)" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                    <input type="number" name="tomax_real" id="tomax_real"></input>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Temperatura operativa mínima da condição real (°C) <span id="tomin_real_question" style="float:right;margin-left:1vw;" title = "Insira a temperatura operativa mínima da condição real - Tomin (°C)" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                    <input type="number" name="tomin_real" id="tomin_real"></input>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>PHFT da condição real (%) <span id="PHFT_real_question" style="float:right;margin-left:1vw;" title = "Insira o PHFT da condição real (%) - os valores são compreendidos entre 0 e 100" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                        <input type="number" name="PHFT_real" id="PHFT_real"></input>
+                    </td>
+                </tr>
+            </table> 
+            <table style="margin-bottom: 4vh;">
+                <h2 style="font-size:20px;text-decoration:underline ;padding:15px;color:#000000;text-align:center">INFORMAÇÕES DA EDIFICAÇÃO NA CONDIÇÃO DE REFERÊNCIA</h2>
+                <tr>
+                    <th>Carga térmica total da condição de referência (kWh) <span id="CgTT_ref_question" style="float:right;margin-left:1vw;" title = "Insira a carga térmica total da condição de referência, ou seja, a somatória das cargas térmicas de resfriamento e aquecimento (quando existente)" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                        <input type="number" name="CgTT_ref" id="CgTT_ref"></input>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Temperatura operativa máxima da condição de referência (°C) <span id="tomax_ref_question" style="float:right;margin-left:1vw;" title = "Insira a temperatura operativa máxima da condição de referência - Tomax (°C)" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                        <input type="number" name="tomax_ref" id="tomax_ref"></input>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th>Temperatura operativa mínima da condição de referência (°C) <span id="tomin_ref_question" style="float:right;margin-left:1vw;" title = "Insira a temperatura operativa mínima da condição de referência - Tomin (°C)" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                        <input type="number" name="tomin_ref" id="tomin_ref"></input>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th>PHFT da condição de referência	 (%) <span id="PHFT_ref_question" style="float:right;margin-left:1vw;" title = "Insira o PHFT da condição de referência (%) - os valores são compreendidos entre 0 e 100" ><i class="fa fa-question-circle" style="font-size:18px;"></i></span></th>
+                    <td>
+                        <input type="number" name="PHFT_ref" id="PHFT_ref"></input>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        
+     
+        <button style="width:20%" id="btn_calcular" type="button" class="btn btn-primary" onclick="avanca()">
+            Calcular
+        </button>    
+
+        <div style="padding-top: 25px;" class="ast-footer-copyright"><p>Desenvolvido por Artur Kamimura</p>
+        </div>
+
+  
+
+</body>
+
+<script src ="classificacao.js"></script> 
+
+</html>
