@@ -187,7 +187,7 @@ else {
     superior =  0
 }
 
-if (minimo == 1 && (0 > calc_red_carga >= red_carga_d)){
+if (minimo == 1 && (red_carga_d <= calc_red_carga < 0 )){
     minimo_d = 1 
 } else {
     minimo_d = 0
